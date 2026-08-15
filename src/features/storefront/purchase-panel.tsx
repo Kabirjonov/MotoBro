@@ -5,6 +5,7 @@ import { CheckCircle2, CreditCard, Minus, Plus, RotateCcw, ShieldCheck, Shopping
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ContactModal } from "@/features/storefront/contact-modal";
 import { useCartStore } from "@/stores/cart-store";
 
 // Color mapping for Uzbek labels
@@ -60,6 +61,7 @@ export function PurchasePanel({
   const [selectedColor, setSelectedColor] = useState(initialColor || "BLUE");
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const reducedMotion = useReducedMotion();
   const addItem = useCartStore((state) => state.addItem);
   const unavailable = stock <= 0;
@@ -153,6 +155,13 @@ export function PurchasePanel({
             <ShoppingCart className="mr-2 size-5" />
             {unavailable ? "Sotuvda yo‘q" : "Savatga qo‘shish"}
           </Button>
+          <button
+            onClick={() => setIsContactOpen(true)}
+            className="h-12 px-6 flex items-center justify-center rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-base transition-colors border border-zinc-200 cursor-pointer"
+            type="button"
+          >
+            Bog'lanish
+          </button>
         </div>
         <AnimatePresence>
           {message ? (
@@ -202,6 +211,13 @@ export function PurchasePanel({
           <ShoppingCart className="mr-2 size-4" />
           {unavailable ? "Sotuvda yo‘q" : "Savatga qo‘shish"}
         </Button>
+        <button
+          onClick={() => setIsContactOpen(true)}
+          className="h-11 px-4 flex items-center justify-center rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-sm transition-colors border border-zinc-200 cursor-pointer"
+          type="button"
+        >
+          Bog'lanish
+        </button>
       </div>
 
       {/* Trust Badges */}
@@ -222,6 +238,9 @@ export function PurchasePanel({
           <span className="text-zinc-500 leading-none">14 kun ichida</span>
         </div>
       </div>
+
+      {/* Reusable Contact Modal */}
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   );
 }

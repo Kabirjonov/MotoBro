@@ -4,16 +4,14 @@ import {
   Bike,
   ChevronRight,
   Headphones,
-  Heart,
   PackageCheck,
   Send,
   ShieldCheck,
-  ShoppingCart,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { Reveal } from "@/components/motion/reveal";
 import { HomeHeroCarousel } from "@/features/storefront/home-hero-carousel";
@@ -42,13 +40,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return localizedMetadata({ locale, ...homeSeo[locale] });
 }
 
-const trustItems = [
-  [ShieldCheck, "100% ishonchli to‘lov", "Xavfsiz va qulay"],
-  [BadgeCheck, "Rasmiy brendlar", "Original mahsulotlar"],
-  [Headphones, "Mijozlarni qo‘llab-quvvatlash", "Har kuni 09:00 – 22:00"],
-  [PackageCheck, "UzExpertiza bilan hamkorlik", "Sifat nazorati kafolatlangan"],
-] as const;
-
 function Sprite({ index }: { index: number }) {
   return (
     <div
@@ -65,12 +56,22 @@ export default async function HomePage() {
   const allFeatured = [...motorcycles, ...parts, ...gear, ...accessories];
   const locale = (await getLocale()) as "uz" | "ru" | "en";
   const localeEnum = locale.toUpperCase();
+  const t = await getTranslations("home");
+
   const categoryFallbacks = [
-    ["Mototsikllar", "Barcha mototsikllar"],
-    ["Ehtiyot qismlar", "Barcha ehtiyot qismlar"],
-    ["Aksessuarlar", "Barcha aksessuarlar"],
-    ["Himoya jihozlari", "Barcha himoya jihozlari"],
+    [t("categories.motorcycles").replace(/^(Barcha|Все|All)\s+/i, ""), t("categories.motorcycles")],
+    [t("categories.parts").replace(/^(Barcha|Все|All)\s+/i, ""), t("categories.parts")],
+    [t("categories.accessories").replace(/^(Barcha|Все|All)\s+/i, ""), t("categories.accessories")],
+    [t("categories.gear").replace(/^(Barcha|Все|All)\s+/i, ""), t("categories.gear")],
   ];
+
+  const trustItems = [
+    [ShieldCheck, t("trust.paymentsTitle"), t("trust.paymentsText")],
+    [BadgeCheck, t("trust.brandsTitle"), t("trust.brandsText")],
+    [Headphones, t("trust.supportTitle"), t("trust.supportText")],
+    [PackageCheck, t("trust.expertizaTitle"), t("trust.expertizaText")],
+  ] as const;
+
   const schema = [
     {
       "@context": "https://schema.org",
@@ -126,7 +127,7 @@ export default async function HomePage() {
                 }
               >
                 <div className="relative z-10 max-w-[55%]">
-                  <h2 className="text-base font-extrabold">
+                  <h2 className="text-base font-extrabold capitalize">
                     {translation?.name ?? fallbackName}
                   </h2>
                   <p className="mt-2 flex items-center text-[11px] text-zinc-500">
@@ -144,28 +145,28 @@ export default async function HomePage() {
 
       {/* 1. Ommabop mahsulotlar Carousel */}
       <HomeProductCarousel
-        title="Ommabop mahsulotlar"
+        title={t("popularTitle")}
         viewAllLink="/catalog"
         products={allFeatured}
       />
 
       {/* 2. Tavsiya etilgan mototsikllar Carousel */}
       <HomeProductCarousel
-        title="Tavsiya etilgan mototsikllar"
+        title={t("motorcyclesTitle")}
         viewAllLink="/catalog?type=MOTORCYCLE"
         products={motorcycles}
       />
 
       {/* 3. Moylar va ehtiyot qismlar Carousel */}
       <HomeProductCarousel
-        title="Moylar va ehtiyot qismlar"
+        title={t("partsTitle")}
         viewAllLink="/catalog?type=PART"
         products={parts}
       />
 
       {/* 4. Ekipirovka va aksessuarlar Carousel */}
       <HomeProductCarousel
-        title="Ekipirovka va aksessuarlar"
+        title={t("gearTitle")}
         viewAllLink="/catalog?type=GEAR"
         products={[...gear, ...accessories]}
       />
@@ -193,17 +194,17 @@ export default async function HomePage() {
         <Reveal direction="left">
           <div className="home-editorial group relative h-full overflow-hidden rounded-md px-7 py-5 text-white transition-shadow hover:shadow-2xl">
             <p className="text-[9px] font-bold tracking-wider text-red-500 uppercase">
-              Editorial
+              {t("editorial.badge")}
             </p>
-            <h2 className="mt-1 text-2xl font-black">Yo‘llar chaqiradi</h2>
+            <h2 className="mt-1 text-2xl font-black">{t("editorial.title")}</h2>
             <p className="text-xs text-white/65">
-              O‘zbekistonning eng go‘zal motomarshrutlari
+              {t("editorial.subtitle")}
             </p>
             <Link
               className="mt-3 inline-flex items-center gap-2 rounded border border-white/60 px-3 py-1 text-[10px] transition hover:bg-white hover:text-black"
               href="/catalog"
             >
-              Maqolani o‘qish <ArrowRight className="size-3" />
+              {t("editorial.button")} <ArrowRight className="size-3" />
             </Link>
             <Bike className="absolute right-12 bottom-5 size-20 text-red-600/70 transition duration-500 group-hover:-translate-x-3" />
             <Send className="absolute right-6 bottom-5 size-5 text-white/30 transition group-hover:translate-x-2 group-hover:-translate-y-2" />

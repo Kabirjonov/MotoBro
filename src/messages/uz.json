@@ -33,5 +33,85 @@
   "validation": {
     "invalid": "Kiritilgan ma’lumotlarni tekshiring.",
     "required": "Bu maydon majburiy."
+  },
+  "home": {
+    "categories": {
+      "motorcycles": "Barcha mototsikllar",
+      "parts": "Barcha ehtiyot qismlar",
+      "accessories": "Barcha aksessuarlar",
+      "gear": "Barcha himoya jihozlari"
+    },
+    "popularTitle": "Ommabop mahsulotlar",
+    "motorcyclesTitle": "Tavsiya etilgan mototsikllar",
+    "partsTitle": "Moylar va ehtiyot qismlar",
+    "gearTitle": "Ekipirovka va aksessuarlar",
+    "trust": {
+      "paymentsTitle": "100% ishonchli to‘lov",
+      "paymentsText": "Xavfsiz va qulay",
+      "brandsTitle": "Rasmiy brendlar",
+      "brandsText": "Original mahsulotlar",
+      "supportTitle": "Mijozlarni qo‘llab-quvvatlash",
+      "supportText": "Har kuni 09:00 – 22:00",
+      "expertizaTitle": "UzExpertiza bilan hamkorlik",
+      "expertizaText": "Sifat nazorati kafolatlangan"
+    },
+    "editorial": {
+      "badge": "Editorial",
+      "title": "Yo‘llar chaqiradi",
+      "subtitle": "O‘zbekistonning eng go‘zal motomarshrutlari",
+      "button": "Maqolani o‘qish"
+    }
+  },
+  "cart": {
+    "title": "Savat",
+    "miniCartAriaLabel": "Savat, {count} ta mahsulot",
+    "empty": "Savat bo‘sh",
+    "emptySubtitle": "Katalogdan kerakli mahsulotlarni qo‘shing.",
+    "goToCatalog": "Katalogga o‘tish",
+    "disclaimer": "Narx va mavjudlik checkout vaqtida serverda qayta tekshiriladi.",
+    "decrease": "Kamaytirish",
+    "increase": "Oshirish",
+    "remove": "O‘chirish",
+    "summary": "Jami",
+    "subtotal": "Mahsulotlar",
+    "deliveryEstimate": "Yetkazish narxi checkout’da hisoblanadi.",
+    "checkout": "Checkout"
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "description": "Manzil noto‘g‘ri yoki sahifa ko‘chirilgan bo‘lishi mumkin.",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "errorPage": {
+    "badge": "Xatolik",
+    "title": "Kutilmagan muammo yuz berdi",
+    "description": "Sahifani qayta yuklashga urinib ko‘ring. Muammo takrorlansa, keyinroq qayting."
+  },
+  "wishlist": {
+    "title": "Sevimlilar",
+    "navTitle": "Sevimlilar",
+    "tagline": "Sizning tanlovingiz",
+    "countProducts": "{count, plural, =0 {mahsulot yo'q} one {1 ta mahsulot} other {# ta mahsulot}}",
+    "empty": "Sevimli mahsulotlar hali yo‘q",
+    "emptySubtitle": "Mahsulotdagi yurak belgisini bosing — u shu yerda saqlanadi.",
+    "viewCatalog": "Katalogni ko‘rish",
+    "addToCart": "Savatga",
+    "removeFromWishlist": "Sevimlilardan olib tashlash",
+    "addToWishlist": "Sevimlilarga qo‘shish"
+  },
+  "auth": {
+    "login": {
+      "metadataTitle": "Admin login",
+      "protectedBadge": "Himoyalangan hudud",
+      "title": "Admin login",
+      "subtitle": "Bu sahifa faqat vakolatli administratorlar uchun. Public akkaunt yoki ro‘yxatdan o‘tish mavjud emas.",
+      "emailLabel": "Email",
+      "passwordLabel": "Parol",
+      "showPassword": "Parolni ko‘rsatish",
+      "hidePassword": "Parolni yashirish",
+      "checking": "Tekshirilmoqda…",
+      "submit": "Admin panelga kirish",
+      "invalidCredentials": "Email yoki parol noto‘g‘ri."
+    }
   }
 }

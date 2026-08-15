@@ -1,8 +1,9 @@
 "use client";
 
 import { Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-import { useWishlistStore,type WishlistItem } from "@/stores/wishlist-store";
+import { useWishlistStore, type WishlistItem } from "@/stores/wishlist-store";
 
 export function FavoriteButton({
   item,
@@ -11,6 +12,7 @@ export function FavoriteButton({
   item: WishlistItem;
   className?: string;
 }) {
+  const t = useTranslations("wishlist");
   const liked = useWishlistStore((state) =>
     state.items.some((entry) => entry.productId === item.productId),
   );
@@ -19,10 +21,10 @@ export function FavoriteButton({
   return (
     <button
       aria-label={
-        liked ? "Sevimlilardan olib tashlash" : "Sevimlilarga qo‘shish"
+        liked ? t("removeFromWishlist") : t("addToWishlist")
       }
       aria-pressed={liked}
-      className={`bg-background/90 grid size-10 place-items-center rounded-full border shadow-sm transition hover:scale-105 ${className}`}
+      className={`bg-background/90 grid size-10 place-items-center rounded-full border shadow-sm transition hover:scale-105 ${className} cursor-pointer`}
       onClick={() => toggleItem(item)}
       type="button"
     >

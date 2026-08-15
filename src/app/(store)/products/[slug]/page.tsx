@@ -345,6 +345,7 @@ export default async function ProductDetailPage(props: Props) {
                       {product.stock > 0 ? "Sotuvda mavjud" : "Sotuvda yo‘q"}
                     </span>
                   </div>
+                  
                 </section>
                 
                 <PurchasePanel
@@ -356,116 +357,51 @@ export default async function ProductDetailPage(props: Props) {
                   imageUrl={product.images[0]?.url}
                   initialColor={product.color || undefined}
                 />
+                
               </div>
-
-              {/* Delivery Quick Info Box on Right (mobile only? No, let's keep it clean or render side-by-side at bottom) */}
-              <div className="mt-6 lg:hidden">
-                <section className="rounded-md border border-zinc-200 bg-white p-6 shadow-sm">
-                  <h2 className="mb-4 text-sm font-extrabold text-zinc-950 uppercase tracking-wider">Yetkazib berish</h2>
-                  <div className="grid gap-5 text-sm text-zinc-600">
-                    <div className="flex gap-3">
-                      <Truck className="mt-0.5 size-5 shrink-0 text-zinc-400" />
-                      <div>
-                        <b className="text-zinc-900 font-bold">Toshkent shahrida yetkazib berish</b>
-                        <p className="text-zinc-500 text-xs mt-0.5">1-2 ish kuni ichida</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <MapPin className="mt-0.5 size-5 shrink-0 text-zinc-400" />
-                      <div>
-                        <b className="text-zinc-900 font-bold">O‘zbekiston bo‘ylab yetkazib berish</b>
-                        <p className="text-zinc-500 text-xs mt-0.5">2-5 ish kuni ichida</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <Package className="mt-0.5 size-5 shrink-0 text-zinc-400" />
-                      <div>
-                        <b className="text-zinc-900 font-bold">Do‘kondan olib ketish</b>
-                        <p className="text-zinc-500 text-xs mt-0.5">
-                          Buyurtmangizni do‘konimizdan olib ketishingiz mumkin
-                        </p>
-                      </div>
+            <div className="mt-6">
+              <section className="rounded-md border border-zinc-200 bg-white p-6 shadow-sm">
+                <h2 className="mb-5 text-sm font-extrabold text-zinc-950 uppercase tracking-wider">Yetkazib berish</h2>
+                <div className="grid gap-5 text-sm text-zinc-600">
+                  <div className="flex gap-3">
+                    <Truck className="mt-0.5 size-5 shrink-0 text-zinc-400" />
+                    <div>
+                      <b className="text-zinc-900 font-bold">Toshkent shahrida yetkazib berish</b>
+                      <p className="text-zinc-500 text-xs mt-0.5">1-2 ish kuni ichida</p>
                     </div>
                   </div>
-                </section>
-              </div>
-            </aside>
-          </Reveal>
+                  <div className="flex gap-3">
+                    <MapPin className="mt-0.5 size-5 shrink-0 text-zinc-400" />
+                    <div>
+                      <b className="text-zinc-900 font-bold">O‘zbekiston bo‘ylab yetkazib berish</b>
+                      <p className="text-zinc-500 text-xs mt-0.5">2-5 ish kuni ichida</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <Package className="mt-0.5 size-5 shrink-0 text-zinc-400" />
+                    <div>
+                      <b className="text-zinc-900 font-bold">Do‘kondan olib ketish</b>
+                      <p className="text-zinc-500 text-xs mt-0.5">
+                        Buyurtmangizni do‘konimizdan olib ketishingiz mumkin
+                      </p>
+                    </div>
+                  </div>
+                  <div className="border-t border-zinc-100 pt-4 mt-2">
+                    <Link href="/catalog" className="text-xs font-bold text-zinc-500 hover:text-red-600 underline">
+                      Batafsil ma'lumot
+                    </Link>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </aside>
+        </Reveal>
         </div>
 
         {/* Bottom Specs & Delivery Cards side-by-side for desktop, hidden on mobile since tabs handle it */}
-        <div className="mt-8 hidden lg:grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="opacity-0 h-0 pointer-events-none" aria-hidden="true" />
-          <section className="rounded-md border border-zinc-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-5 text-sm font-extrabold text-zinc-950 uppercase tracking-wider">Yetkazib berish</h2>
-            <div className="grid gap-5 text-sm text-zinc-600">
-              <div className="flex gap-3">
-                <Truck className="mt-0.5 size-5 shrink-0 text-zinc-400" />
-                <div>
-                  <b className="text-zinc-900 font-bold">Toshkent shahrida yetkazib berish</b>
-                  <p className="text-zinc-500 text-xs mt-0.5">1-2 ish kuni ichida</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-zinc-400" />
-                <div>
-                  <b className="text-zinc-900 font-bold">O‘zbekiston bo‘ylab yetkazib berish</b>
-                  <p className="text-zinc-500 text-xs mt-0.5">2-5 ish kuni ichida</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <Package className="mt-0.5 size-5 shrink-0 text-zinc-400" />
-                <div>
-                  <b className="text-zinc-900 font-bold">Do‘kondan olib ketish</b>
-                  <p className="text-zinc-500 text-xs mt-0.5">
-                    Buyurtmangizni do‘konimizdan olib ketishingiz mumkin
-                  </p>
-                </div>
-              </div>
-              <div className="border-t border-zinc-100 pt-4 mt-2">
-                <Link href="/catalog" className="text-xs font-bold text-zinc-500 hover:text-red-600 underline">
-                  Batafsil ma'lumot
-                </Link>
-              </div>
-            </div>
-          </section>
-        </div>
-
+        {/**/}
         {/* Compatibility table for parts */}
-        {product.type === ProductType.PART &&
-        product.compatibilities.length ? (
-          <section className="mt-12">
-            <h2 className="text-2xl font-black text-zinc-900">Mos keladigan mototsikllar</h2>
-            <div className="mt-4 overflow-x-auto rounded-md border border-zinc-200 bg-white shadow-sm">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-zinc-50 border-b border-zinc-200">
-                  <tr>
-                    <th className="p-3 text-zinc-500 font-semibold">Marka</th>
-                    <th className="p-3 text-zinc-500 font-semibold">Model</th>
-                    <th className="p-3 text-zinc-500 font-semibold">Yillar</th>
-                    <th className="p-3 text-zinc-500 font-semibold">Dvigatel</th>
-                    <th className="p-3 text-zinc-500 font-semibold">Izoh</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-100">
-                  {product.compatibilities.map((item) => (
-                    <tr className="hover:bg-zinc-50/50 transition-colors" key={item.id}>
-                      <td className="p-3 font-bold text-zinc-950">{item.make}</td>
-                      <td className="p-3 text-zinc-600">{item.model}</td>
-                      <td className="p-3 text-zinc-600">
-                        {item.yearFrom ?? "—"}–{item.yearTo ?? "—"}
-                      </td>
-                      <td className="p-3 text-zinc-600">
-                        {item.engineCc ? `${item.engineCc} cc` : "—"}
-                      </td>
-                      <td className="p-3 text-zinc-500">{item.note ?? "—"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        ) : null}
+      
 
         {/* Similar products section */}
         <Reveal>

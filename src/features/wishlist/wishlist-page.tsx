@@ -1,9 +1,9 @@
 "use client";
 
 import { Heart, ShoppingCart, Trash2 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale } from "next-intl";
 import { useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,8 @@ import { useCartStore } from "@/stores/cart-store";
 import { useWishlistStore } from "@/stores/wishlist-store";
 
 export function WishlistPage() {
+  const t = useTranslations("wishlist");
+  const tCommon = useTranslations("common");
   const mounted = useSyncExternalStore(
     () => () => undefined,
     () => true,
@@ -23,7 +25,7 @@ export function WishlistPage() {
   const addItem = useCartStore((state) => state.addItem);
 
   if (!mounted) {
-    return <div className="container min-h-[50vh] py-12">Yuklanmoqda…</div>;
+    return <div className="container min-h-[50vh] py-12">{tCommon("loading")}</div>;
   }
 
   return (
@@ -31,24 +33,26 @@ export function WishlistPage() {
       <div className="mb-8 flex items-end justify-between gap-4">
         <div>
           <p className="text-primary text-sm font-black uppercase">
-            Sizning tanlovingiz
+            {t("tagline")}
           </p>
-          <h1 className="mt-2 text-3xl font-black sm:text-4xl">Sevimlilar</h1>
+          <h1 className="mt-2 text-3xl font-black sm:text-4xl">{t("title")}</h1>
         </div>
-        <p className="text-muted-foreground text-sm">{items.length} mahsulot</p>
+        <p className="text-muted-foreground text-sm">
+          {t("countProducts", { count: items.length })}
+        </p>
       </div>
 
       {items.length === 0 ? (
         <section className="grid place-items-center rounded-2xl border border-dashed py-20 text-center">
           <Heart className="text-muted-foreground size-12" />
           <h2 className="mt-4 text-xl font-black">
-            Sevimli mahsulotlar hali yo‘q
+            {t("empty")}
           </h2>
           <p className="text-muted-foreground mt-2">
-            Mahsulotdagi yurak belgisini bosing — u shu yerda saqlanadi.
+            {t("emptySubtitle")}
           </p>
           <Button asChild className="mt-6">
-            <Link href="/catalog">Katalogni ko‘rish</Link>
+            <Link href="/catalog">{t("viewCatalog")}</Link>
           </Button>
         </section>
       ) : (
@@ -64,11 +68,11 @@ export function WishlistPage() {
               >
                 {item.imageUrl ? (
                   <Image
-                    alt={item.imageAlt}
-                    className="object-cover"
-                    fill
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                    src={item.imageUrl}
+                     alt={item.imageAlt}
+                     className="object-cover"
+                     fill
+                     sizes="(max-width: 640px) 100vw, 33vw"
+                     src={item.imageUrl}
                   />
                 ) : null}
               </Link>
@@ -86,7 +90,7 @@ export function WishlistPage() {
                 </div>
                 <div className="flex gap-2">
                   <Button
-                    className="flex-1"
+                    className="flex-1 cursor-pointer"
                     disabled={item.stock <= 0}
                     onClick={() =>
                       addItem({
@@ -102,14 +106,15 @@ export function WishlistPage() {
                     type="button"
                   >
                     <ShoppingCart className="size-4" />
-                    Savatga
+                    {t("addToCart")}
                   </Button>
                   <Button
-                    aria-label="Sevimlilardan olib tashlash"
+                    aria-label={t("removeFromWishlist")}
                     onClick={() => removeItem(item.productId)}
                     size="icon"
                     type="button"
                     variant="outline"
+                    className="cursor-pointer"
                   >
                     <Trash2 className="size-4" />
                   </Button>

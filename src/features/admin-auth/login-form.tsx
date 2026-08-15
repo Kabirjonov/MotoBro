@@ -1,6 +1,7 @@
 "use client";
 
 import { Eye, EyeOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import {
 const initialState: LoginActionState = {};
 
 export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
+  const t = useTranslations("auth.login");
   const [state, action, pending] = useActionState(loginAdmin, initialState);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -20,7 +22,7 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
       <input name="redirectTo" type="hidden" value={redirectTo} />
       <div className="space-y-2">
         <label className="text-sm font-semibold" htmlFor="email">
-          Email
+          {t("emailLabel")}
         </label>
         <input
           autoComplete="username"
@@ -35,7 +37,7 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
       </div>
       <div className="space-y-2">
         <label className="text-sm font-semibold" htmlFor="password">
-          Parol
+          {t("passwordLabel")}
         </label>
         <div className="relative">
           <input
@@ -49,10 +51,10 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
           />
           <button
             aria-label={
-              passwordVisible ? "Parolni yashirish" : "Parolni ko‘rsatish"
+              passwordVisible ? t("hidePassword") : t("showPassword")
             }
             aria-pressed={passwordVisible}
-            className="text-muted-foreground hover:text-foreground focus-visible:ring-ring absolute top-1/2 right-1 grid size-9 -translate-y-1/2 place-items-center rounded-md transition outline-none hover:scale-105 focus-visible:ring-2"
+            className="text-muted-foreground hover:text-foreground focus-visible:ring-ring absolute top-1/2 right-1 grid size-9 -translate-y-1/2 place-items-center rounded-md transition outline-none hover:scale-105 focus-visible:ring-2 cursor-pointer"
             onClick={() => setPasswordVisible((visible) => !visible)}
             type="button"
           >
@@ -66,11 +68,11 @@ export function AdminLoginForm({ redirectTo }: { redirectTo: string }) {
       </div>
       {state.message ? (
         <p aria-live="polite" className="text-destructive text-sm" role="alert">
-          {state.message}
+          {state.message === "Email yoki parol noto‘g‘ri." ? t("invalidCredentials") : state.message}
         </p>
       ) : null}
-      <Button className="w-full" disabled={pending} type="submit">
-        {pending ? "Tekshirilmoqda…" : "Admin panelga kirish"}
+      <Button className="w-full cursor-pointer" disabled={pending} type="submit">
+        {pending ? t("checking") : t("submit")}
       </Button>
     </form>
   );

@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { CartPage } from "@/features/cart/cart-page";
-export const metadata: Metadata = {
-  title: "Savat",
-  robots: { index: false, follow: false },
-};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("cart");
+  return {
+    title: t("title"),
+    robots: { index: false, follow: false },
+  };
+}
+
 export default function Page() {
   return <CartPage />;
 }

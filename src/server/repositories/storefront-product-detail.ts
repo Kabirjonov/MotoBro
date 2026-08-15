@@ -99,7 +99,7 @@ async function queryProduct(
       (product.status !== ProductStatus.ACTIVE || product.archivedAt))
   )
     return null;
-  const related = await db.product.findMany({
+  let related = await db.product.findMany({
     where: {
       id: { not: product.id },
       status: ProductStatus.ACTIVE,
@@ -111,8 +111,25 @@ async function queryProduct(
     },
     select: productCardSelect,
     orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
-    take: 4,
+    take: 8,
   });
+
+  // If there are fewer than 4 related products, fill the list with fallback active products
+  if (related.length < 4) {
+    const existingIds = [product.id, ...related.map((r) => r.id)];
+    const fallback = await db.product.findMany({
+      where: {
+        id: { notIn: existingIds },
+        status: ProductStatus.ACTIVE,
+        archivedAt: null,
+      },
+      select: productCardSelect,
+      orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
+      take: 8 - related.length,
+    });
+    related = [...related, ...fallback];
+  }
+
   return {
     product: {
       ...product,

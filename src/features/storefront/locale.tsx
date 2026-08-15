@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useTransition } from "react";
 
@@ -19,22 +19,20 @@ export function StoreLocaleSwitcher({
 }) {
   const locale = useLocale() as AppLocale;
   const pathname = usePathname();
-  const router = useRouter();
   const [pending, startTransition] = useTransition();
   const t = useTranslations("locale");
   useEffect(() => {
     const saved = localStorage.getItem("locale");
     if (!saved || !isAppLocale(saved) || saved === locale) return;
     persistLocaleCookie(saved);
-    startTransition(() => router.refresh());
-  }, [locale, router]);
+    window.location.reload();
+  }, [locale]);
   function update(next: AppLocale) {
     localStorage.setItem("locale", next);
     persistLocaleCookie(next);
     startTransition(() => {
       const target = localizedPaths?.[next] ?? localePath(next, pathname);
-      if (target !== pathname) router.replace(target);
-      router.refresh();
+      window.location.href = target;
     });
   }
   if (variant === "compact")

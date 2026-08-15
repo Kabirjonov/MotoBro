@@ -33,5 +33,85 @@
   "validation": {
     "invalid": "Check the information you entered.",
     "required": "This field is required."
+  },
+  "home": {
+    "categories": {
+      "motorcycles": "All motorcycles",
+      "parts": "All parts",
+      "accessories": "All accessories",
+      "gear": "All gear"
+    },
+    "popularTitle": "Popular products",
+    "motorcyclesTitle": "Featured motorcycles",
+    "partsTitle": "Oils & parts",
+    "gearTitle": "Riding gear & accessories",
+    "trust": {
+      "paymentsTitle": "100% secure payment",
+      "paymentsText": "Safe and convenient",
+      "brandsTitle": "Official brands",
+      "brandsText": "Original products",
+      "supportTitle": "Customer support",
+      "supportText": "Every day 09:00 – 22:00",
+      "expertizaTitle": "Partnership with UzExpertiza",
+      "expertizaText": "Quality control guaranteed"
+    },
+    "editorial": {
+      "badge": "Editorial",
+      "title": "Roads are calling",
+      "subtitle": "Beautiful moto routes in Uzbekistan",
+      "button": "Read article"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "miniCartAriaLabel": "Cart, {count} items",
+    "empty": "Your cart is empty",
+    "emptySubtitle": "Add items from the catalog to get started.",
+    "goToCatalog": "Go to Catalog",
+    "disclaimer": "Prices and availability are verified on the server at checkout.",
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "remove": "Remove",
+    "summary": "Summary",
+    "subtotal": "Subtotal",
+    "deliveryEstimate": "Delivery costs are calculated at checkout.",
+    "checkout": "Proceed to Checkout"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The link might be broken or the page may have been moved.",
+    "backToHome": "Go back home"
+  },
+  "errorPage": {
+    "badge": "Error",
+    "title": "An unexpected error occurred",
+    "description": "Please try reloading the page. If the issue persists, please try again later."
+  },
+  "wishlist": {
+    "title": "Favorites",
+    "navTitle": "Favorites",
+    "tagline": "Your Selection",
+    "countProducts": "{count, plural, =0 {no products} one {1 product} other {# products}}",
+    "empty": "No favorites yet",
+    "emptySubtitle": "Click the heart icon on any product to save it here.",
+    "viewCatalog": "View Catalog",
+    "addToCart": "Add to Cart",
+    "removeFromWishlist": "Remove from favorites",
+    "addToWishlist": "Add to favorites"
+  },
+  "auth": {
+    "login": {
+      "metadataTitle": "Admin Login",
+      "protectedBadge": "Protected Area",
+      "title": "Admin Login",
+      "subtitle": "This page is strictly for authorized administrators. Public sign up or registration is not available.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "checking": "Checking…",
+      "submit": "Login to Admin Panel",
+      "invalidCredentials": "Invalid email or password."
+    }
   }
 }
