@@ -8,6 +8,7 @@ import {
   Send,
   ShieldCheck,
 } from "lucide-react";
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
@@ -40,12 +41,22 @@ export async function generateMetadata(): Promise<Metadata> {
   return localizedMetadata({ locale, ...homeSeo[locale] });
 }
 
-function Sprite({ index }: { index: number }) {
+const CATEGORY_IMAGES = [
+  { src: "/home/cat-motorcycles.webp", alt: "Mototsikllar" },
+  { src: "/home/cat-parts.webp",       alt: "Ehtiyot qismlar" },
+  { src: "/home/cat-accessories.webp", alt: "Aksessuarlar" },
+  { src: "/home/cat-gear.webp",        alt: "Ekipirovka" },
+] as const;
+
+function CategoryImage({ index }: { index: number }) {
+  const img = CATEGORY_IMAGES[index] ?? CATEGORY_IMAGES[0];
   return (
-    <div
-      aria-hidden="true"
-      className="home-product-sprite"
-      style={{ backgroundPosition: `${index * 20}% center` }}
+    <Image
+      src={img.src}
+      alt={img.alt}
+      fill
+      className="object-contain object-right-bottom drop-shadow-lg"
+      sizes="200px"
     />
   );
 }
@@ -134,8 +145,8 @@ export default async function HomePage() {
                     {subtitle} <ChevronRight className="size-3" />
                   </p>
                 </div>
-                <div className="absolute -right-4 -bottom-7 h-28 w-36 transition duration-500 group-hover:scale-110 group-hover:-rotate-2">
-                  <Sprite index={index === 0 ? 5 : Math.min(index + 2, 5)} />
+                <div className="absolute -right-3 -bottom-4 h-28 w-40 transition duration-500 group-hover:scale-110 group-hover:-rotate-2">
+                  <CategoryImage index={index} />
                 </div>
               </Link>
             </Reveal>
