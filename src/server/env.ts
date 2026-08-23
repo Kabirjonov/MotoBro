@@ -19,6 +19,8 @@ export function getServerEnv(): ServerEnv {
     STORAGE_PUBLIC_URL: process.env.STORAGE_PUBLIC_URL,
     STORAGE_REGION: process.env.STORAGE_REGION,
     STORAGE_SECRET_ACCESS_KEY: process.env.STORAGE_SECRET_ACCESS_KEY,
+    UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
+    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
   });
 
   return cachedEnv;

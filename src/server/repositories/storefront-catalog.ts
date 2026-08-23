@@ -24,9 +24,8 @@ export const productCardSelect = {
     },
   },
   images: {
-    where: { isPrimary: true },
-    orderBy: { sortOrder: "asc" as const },
-    take: 1,
+    orderBy: [{ isPrimary: "desc" as const }, { sortOrder: "asc" as const }],
+    take: 5,
     select: {
       altEn: true,
       altRu: true,

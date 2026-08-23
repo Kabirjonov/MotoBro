@@ -75,6 +75,7 @@ async function upsertCategory(sortOrder: number, translations: Translation[]) {
 }
 
 async function upsertProduct(input: {
+  additionalImages?: { altUz?: string; slug: string }[];
   brandId?: string;
   categoryId: string;
   compatibility?: {
@@ -152,6 +153,7 @@ async function upsertProduct(input: {
     create: {
       altUz: input.translations[0]?.name ?? input.sku,
       isPrimary: true,
+      sortOrder: 0,
       width: 1200,
       height: 800,
       objectKey: `demo/${input.imageSlug}.webp`,
@@ -161,12 +163,41 @@ async function upsertProduct(input: {
     update: {
       altUz: input.translations[0]?.name ?? input.sku,
       isPrimary: true,
+      sortOrder: 0,
       width: 1200,
       height: 800,
       productId: product.id,
       url: `/demo/${input.imageSlug}.webp`,
     },
   });
+
+  if (input.additionalImages?.length) {
+    for (let i = 0; i < input.additionalImages.length; i++) {
+      const img = input.additionalImages[i];
+      await prisma.productImage.upsert({
+        where: { objectKey: `demo/${img.slug}.webp` },
+        create: {
+          altUz: img.altUz ?? input.translations[0]?.name ?? input.sku,
+          isPrimary: false,
+          sortOrder: i + 1,
+          width: 1200,
+          height: 800,
+          objectKey: `demo/${img.slug}.webp`,
+          productId: product.id,
+          url: `/demo/${img.slug}.webp`,
+        },
+        update: {
+          altUz: img.altUz ?? input.translations[0]?.name ?? input.sku,
+          isPrimary: false,
+          sortOrder: i + 1,
+          width: 1200,
+          height: 800,
+          productId: product.id,
+          url: `/demo/${img.slug}.webp`,
+        },
+      });
+    }
+  }
 
   if (input.motorcycle) {
     await prisma.motorcycleSpec.upsert({
@@ -516,6 +547,20 @@ async function main() {
 
   // 5. BMW S1000RR 2024
   await upsertProduct({
+    additionalImages: [
+      {
+        slug: "bmw-s1000rr-2024-2",
+        altUz: "BMW S1000RR 2024 - Orqa tomondan ko'rinishi",
+      },
+      {
+        slug: "bmw-s1000rr-2024-3",
+        altUz: "BMW S1000RR 2024 - Yon tomondan ko'rinishi",
+      },
+      {
+        slug: "bmw-s1000rr-2024-4",
+        altUz: "BMW S1000RR 2024 - Old tomondan ko'rinishi",
+      },
+    ],
     brandId: bmw.id,
     categoryId: motorcycles.id,
     condition: ProductCondition.NEW,

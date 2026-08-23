@@ -17,13 +17,15 @@ export const serverEnvSchema = publicEnvSchema.extend({
   AUTH_URL: z.url(),
   DATABASE_URL: z.url(),
   NEXT_SERVER_ACTIONS_ENCRYPTION_KEY: z.string().min(32),
-  STORAGE_DRIVER: z.enum(["local", "s3"]).default("local"),
+  STORAGE_DRIVER: z.enum(["local", "s3", "uploadthing"]).default("local"),
   STORAGE_ACCESS_KEY_ID: z.string().min(1).optional(),
   STORAGE_BUCKET: z.string().min(1).optional(),
   STORAGE_ENDPOINT: optionalUrl,
   STORAGE_PUBLIC_URL: optionalUrl,
   STORAGE_REGION: z.string().min(1).default("auto"),
   STORAGE_SECRET_ACCESS_KEY: z.string().min(1).optional(),
+  UPLOADTHING_TOKEN: z.string().min(1).optional(),
+  UPLOADTHING_SECRET: z.string().min(1).optional(),
 });
 
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
