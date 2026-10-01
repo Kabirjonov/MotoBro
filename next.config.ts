@@ -22,7 +22,13 @@ const remotePattern = storageRemotePattern();
 const nextConfig: NextConfig = {
   cacheComponents: true,
   reactStrictMode: true,
-  images: { remotePatterns: remotePattern ? [remotePattern] : [] },
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "utfs.io", pathname: "/**" },
+      { protocol: "https", hostname: "uploadthing.com", pathname: "/**" },
+      ...(remotePattern ? [remotePattern] : []),
+    ],
+  },
   async headers() {
     return [{ source: "/:path*", headers: [...baseSecurityHeaders] }];
   },

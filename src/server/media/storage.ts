@@ -8,6 +8,7 @@ import {
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
+import { UTApi } from "uploadthing/server";
 
 import { getStorageConfig } from "@/server/config/storage";
 
@@ -37,6 +38,29 @@ export class LocalMediaStorage implements MediaStorage {
         if (error.code !== "ENOENT") throw error;
       },
     );
+  }
+}
+
+class UploadThingMediaStorage implements MediaStorage {
+  private utapi: UTApi;
+
+  constructor(token: string) {
+    this.utapi = new UTApi({ token });
+  }
+
+  async put(objectKey: string, object: StoredObject) {
+    const file = new File([new Uint8Array(object.data)], objectKey, {
+      type: object.contentType,
+    });
+    const res = await this.utapi.uploadFiles(file);
+    if (res.error || !res.data) {
+      throw new Error(res.error?.message ?? "UploadThing upload failed");
+    }
+    return { url: res.data.url };
+  }
+
+  async delete(objectKey: string) {
+    await this.utapi.deleteFiles(objectKey).catch(() => undefined);
   }
 }
 
@@ -78,10 +102,11 @@ class S3MediaStorage implements MediaStorage {
 
 export function getMediaStorage(): MediaStorage {
   const config = getStorageConfig();
-  return config.driver === "local"
-    ? new LocalMediaStorage()
-    : new S3MediaStorage(config);
+  if (config.driver === "local") return new LocalMediaStorage();
+  if (config.driver === "uploadthing") return new UploadThingMediaStorage(config.token);
+  return new S3MediaStorage(config);
 }
+
 export async function readLocalMedia(objectKey: string) {
   return readFile(safeLocalPath(objectKey));
 }

@@ -72,7 +72,7 @@ export function ProductGallery({
           </button>
         </div>
       ) : null}
-      <div className="bg-white relative order-1 grid aspect-[16/9] min-h-[19rem] place-items-center overflow-hidden rounded-md border border-zinc-200 md:order-2 md:aspect-[1.88/1] shadow-sm">
+      <div className="bg-white relative order-1 flex items-center justify-center aspect-[4/3] sm:aspect-[3/2] overflow-hidden rounded-xl border border-zinc-200/80 md:order-2 shadow-sm p-2">
         {current ? (
           <AnimatePresence mode="wait">
             <motion.div

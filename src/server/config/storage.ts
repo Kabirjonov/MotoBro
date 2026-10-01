@@ -5,6 +5,11 @@ import { getServerEnv } from "@/server/env";
 export type StorageConfig =
   | Readonly<{ driver: "local" }>
   | Readonly<{
+      driver: "uploadthing";
+      secret?: string;
+      token: string;
+    }>
+  | Readonly<{
       accessKeyId: string;
       bucket: string;
       driver: "s3";
@@ -17,6 +22,17 @@ export type StorageConfig =
 export function getStorageConfig(): StorageConfig {
   const env = getServerEnv();
   if (env.STORAGE_DRIVER === "local") return { driver: "local" };
+  if (env.STORAGE_DRIVER === "uploadthing") {
+    const token = env.UPLOADTHING_TOKEN ?? process.env.UPLOADTHING_TOKEN;
+    if (!token) {
+      throw new Error("UploadThing storage configuration is missing UPLOADTHING_TOKEN");
+    }
+    return {
+      driver: "uploadthing",
+      secret: env.UPLOADTHING_SECRET ?? process.env.UPLOADTHING_SECRET,
+      token,
+    };
+  }
   if (
     !env.STORAGE_ACCESS_KEY_ID ||
     !env.STORAGE_BUCKET ||

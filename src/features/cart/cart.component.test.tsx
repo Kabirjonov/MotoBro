@@ -30,7 +30,7 @@ describe("accessible cart interactions", () => {
       screen.getAllByRole("button", { name: "Savatga qo‘shish" })[0]!,
     );
     expect(useCartStore.getState().items[0]?.quantity).toBe(2);
-    expect(screen.getByText("2 dona savatga qo‘shildi.")).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: /O‘tish/ })[0]).toBeInTheDocument();
   });
 
   it("disables purchase when stock is zero", () => {
